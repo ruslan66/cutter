@@ -198,6 +198,7 @@ void Configuration::resetToDefaultAsmOptions()
     RESTORE_ASMOPT("asm.slow", true);
     RESTORE_ASMOPT("asm.lines", true);
     RESTORE_ASMOPT("asm.fcnlines", true);
+    RESTORE_ASMOPT("asm.flgoff", false);
     RESTORE_ASMOPT("asm.emu", false);
     RESTORE_ASMOPT("asm.cmt.right", true);
     RESTORE_ASMOPT("asm.varsum", false);
@@ -226,6 +227,7 @@ void Configuration::saveDefaultAsmOptions()
     setDefaultAsmOption("asm.slow",         Core()->getConfigb("asm.slow"));
     setDefaultAsmOption("asm.lines",        Core()->getConfigb("asm.lines"));
     setDefaultAsmOption("asm.fcnlines",     Core()->getConfigb("asm.fcnlines"));
+    setDefaultAsmOption("asm.flgoff",       Core()->getConfigb("asm.flgoff"));
     setDefaultAsmOption("asm.emu",          Core()->getConfigb("asm.emu"));
     setDefaultAsmOption("asm.cmt.right",    Core()->getConfigb("asm.cmt.right"));
     setDefaultAsmOption("asm.varsum",       Core()->getConfigb("asm.varsum"));
