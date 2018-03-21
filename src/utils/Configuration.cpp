@@ -24,13 +24,13 @@ void Configuration::loadInitial()
 {
     setDarkTheme(getDarkTheme());
     setColorTheme(getCurrentTheme());
+    resetToDefaultAsmOptions();
 }
 
 void Configuration::resetAll()
 {
     Core()->cmd("e-");
     Core()->setSettings();
-    Core()->resetDefaultAsmOptions();
     // Delete the file so no extra configuration is in it.
     QFile settingsFile(s.fileName());
     settingsFile.remove();
@@ -185,4 +185,60 @@ void Configuration::setColorTheme(QString theme)
         s.setValue("colors." + it.key(), QColor(rgb[0].toInt(), rgb[1].toInt(), rgb[2].toInt()));
     }
     emit colorsUpdated();
+}
+
+void Configuration::resetToDefaultAsmOptions()
+{
+#define RESTORE_ASMOPT(option, defaultValue) { Core()->setConfig(option, getDefaultAsmOption(option, defaultValue)); }
+    RESTORE_ASMOPT("asm.esil", false);
+    RESTORE_ASMOPT("asm.pseudo", false);
+    RESTORE_ASMOPT("asm.offset", true);
+    RESTORE_ASMOPT("asm.describe", false);
+    RESTORE_ASMOPT("asm.stackptr", false);
+    RESTORE_ASMOPT("asm.slow", true);
+    RESTORE_ASMOPT("asm.lines", true);
+    RESTORE_ASMOPT("asm.fcnlines", true);
+    RESTORE_ASMOPT("asm.emu", false);
+    RESTORE_ASMOPT("asm.cmt.right", true);
+    RESTORE_ASMOPT("asm.varsum", false);
+    RESTORE_ASMOPT("asm.bytes", false);
+    RESTORE_ASMOPT("asm.size", false);
+    RESTORE_ASMOPT("asm.bytespace", false);
+    RESTORE_ASMOPT("asm.lbytes", true);
+    RESTORE_ASMOPT("asm.nbytes", 10);
+    RESTORE_ASMOPT("asm.syntax", QString("intel"));
+    RESTORE_ASMOPT("asm.ucase", false);
+    RESTORE_ASMOPT("asm.bbline", false);
+    RESTORE_ASMOPT("asm.capitalize", false);
+    RESTORE_ASMOPT("asm.varsub", true);
+    RESTORE_ASMOPT("asm.varsub_only", true);
+    RESTORE_ASMOPT("asm.tabs", 5);
+#undef RESTORE_ASMOPT
+}
+
+void Configuration::saveDefaultAsmOptions()
+{
+    setDefaultAsmOption("asm.esil",         Core()->getConfigb("asm.esil"));
+    setDefaultAsmOption("asm.pseudo",       Core()->getConfigb("asm.pseudo"));
+    setDefaultAsmOption("asm.offset",       Core()->getConfigb("asm.offset"));
+    setDefaultAsmOption("asm.describe",     Core()->getConfigb("asm.describe"));
+    setDefaultAsmOption("asm.stackptr",     Core()->getConfigb("asm.stackptr"));
+    setDefaultAsmOption("asm.slow",         Core()->getConfigb("asm.slow"));
+    setDefaultAsmOption("asm.lines",        Core()->getConfigb("asm.lines"));
+    setDefaultAsmOption("asm.fcnlines",     Core()->getConfigb("asm.fcnlines"));
+    setDefaultAsmOption("asm.emu",          Core()->getConfigb("asm.emu"));
+    setDefaultAsmOption("asm.cmt.right",    Core()->getConfigb("asm.cmt.right"));
+    setDefaultAsmOption("asm.varsum",       Core()->getConfigb("asm.varsum"));
+    setDefaultAsmOption("asm.bytes",        Core()->getConfigb("asm.bytes"));
+    setDefaultAsmOption("asm.size",         Core()->getConfigb("asm.size"));
+    setDefaultAsmOption("asm.bytespace",    Core()->getConfigb("asm.bytespace"));
+    setDefaultAsmOption("asm.lbytes",       Core()->getConfigb("asm.lbytes"));
+    setDefaultAsmOption("asm.nbytes",       Core()->getConfigi("asm.nbytes"));
+    setDefaultAsmOption("asm.syntax",       Core()->getConfig("asm.syntax"));
+    setDefaultAsmOption("asm.ucase",        Core()->getConfigb("asm.ucase"));
+    setDefaultAsmOption("asm.bbline",       Core()->getConfigb("asm.bbline"));
+    setDefaultAsmOption("asm.capitalize",   Core()->getConfigb("asm.capitalize"));
+    setDefaultAsmOption("asm.varsub",       Core()->getConfigb("asm.varsub"));
+    setDefaultAsmOption("asm.varsub_only",  Core()->getConfigb("asm.varsub_only"));
+    setDefaultAsmOption("asm.tabs",         Core()->getConfigi("asm.tabs"));
 }

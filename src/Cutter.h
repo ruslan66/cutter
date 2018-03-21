@@ -436,9 +436,6 @@ public:
     void triggerAsmOptionsChanged();
     void triggerGraphOptionsChanged();
 
-    void resetDefaultAsmOptions();
-    void saveDefaultAsmOptions();
-
     void loadScript(const QString &scriptname);
     QString getVersionInformation();
     QJsonArray getOpenedFiles();

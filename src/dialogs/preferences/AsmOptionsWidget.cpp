@@ -103,12 +103,12 @@ void AsmOptionsWidget::updateAsmOptionsFromVars()
 
 void AsmOptionsWidget::saveAsDefault()
 {
-    Core()->saveDefaultAsmOptions();
+    Config()->saveDefaultAsmOptions();
 }
 
 void AsmOptionsWidget::resetToDefault()
 {
-    Core()->resetDefaultAsmOptions();
+    Config()->resetToDefaultAsmOptions();
     updateAsmOptionsFromVars();
     triggerAsmOptionsChanged();
 }
